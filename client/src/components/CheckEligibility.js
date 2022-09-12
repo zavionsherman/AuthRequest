@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {
   FormControl,
-  FormHelperText,
   Grid,
   TextField,
   InputLabel,
-  Button,
-  Container,
   createTheme,
   ThemeProvider,
+  MenuItem,
+  Snackbar,
+  Select,
 } from "@mui/material";
 
-const CheckEligibility = () => {
+import PriorAuth from "./PriorAuth";
+import MuiAlert from "@mui/material/Alert";
+import { useEffect } from "react";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const CheckEligibility = (props) => {
+  const [eligible, setEligible] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [notEligible, setNotEligible] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const acknowledge = location?.state?.acknowledge || false;
+
+  useEffect(() => {
+    if (!acknowledge) {
+      navigate("/");
+    }
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const validationSchema = yup.object({
     firstName: yup
       .string("Enter your first name")
@@ -21,35 +53,35 @@ const CheckEligibility = () => {
     lastName: yup
       .string("Enter your last name")
       .required("Last name is required"),
-    SSN: yup.number("Enter SSN number"),
-    DateOfBirth: yup.number("Enter Date of Birth number"),
-    Gender: yup.string("Enter Gender"),
-    VisitNumber: yup
-      .number("Enter visit number")
-      .required("Visit Number is required"),
+    DateOfBirth: yup.date("Enter Date of Birth number"),
     ServiceBegin: yup
       .date("Enter service begin date")
       .required("Service begin date is required"),
     Payor: yup.string("Enter Payor").required("Payor is required"),
-    State: yup
-      .string("Enter state abbreviation")
-      .max(2, "State should be 2 letters"),
   });
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
-      SSN: "",
       DateOfBirth: "",
-      Gender: "",
-      VisitNumber: "",
       ServiceBegin: "",
       Payor: "",
-      State: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(values);
+      const response = true;
+      if (response) {
+        setTimeout(() => {
+          setEligible(true);
+          setOpen(true);
+        }, 3000);
+      } else {
+        setTimeout(() => {
+          setEligible(false);
+          setNotEligible(true);
+        }, 3000);
+      }
     },
   });
 
@@ -71,14 +103,15 @@ const CheckEligibility = () => {
   return (
     <main>
       <div className="container mx-auto my-5">
-        <div className="text-3xl font-bold text-center my-4">
-          Check Eligibility Form
-        </div>
-        <div className="form-bg p-5">
-          <form onSubmit={formik.handleSubmit} className="my-5 p-4 md:p-7 bg ">
-            <div className="mx-auto">
-              <ThemeProvider theme={theme}>
-                <Grid container rowSpacing={4} columnSpacing={{ xs: 2, sm: 2 }}>
+        <div className="text-3xl font-bold text-center my-4"></div>
+        <ThemeProvider theme={theme}>
+          <div className="form-bg p-5">
+            <form
+              onSubmit={formik.handleSubmit}
+              className="my-5 p-4 md:p-7 bg "
+            >
+              <div className="mx-auto">
+                <Grid container rowSpacing={4} columnSpacing={{ xs: 0, sm: 2 }}>
                   <Grid item>
                     <FormControl>
                       <TextField
@@ -121,7 +154,6 @@ const CheckEligibility = () => {
                       />
                     </FormControl>
                   </Grid>
-
                   <Grid item>
                     <FormControl>
                       <TextField
@@ -140,62 +172,6 @@ const CheckEligibility = () => {
                           formik.touched.DateOfBirth &&
                           formik.errors.DateOfBirth
                         }
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="SSN"
-                        variant="filled"
-                        size="small"
-                        id="SSN"
-                        name="SSN"
-                        value={formik.values.SSN}
-                        onChange={formik.handleChange}
-                        error={formik.touched.SSN && Boolean(formik.errors.SSN)}
-                        helperText={formik.touched.SSN && formik.errors.SSN}
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="Gender"
-                        variant="filled"
-                        size="small"
-                        id="Gender"
-                        name="Gender"
-                        value={formik.values.Gender}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.Gender && Boolean(formik.errors.Gender)
-                        }
-                        helperText={
-                          formik.touched.Gender && formik.errors.Gender
-                        }
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="Visit Number"
-                        variant="filled"
-                        size="small"
-                        id="VisitNumber"
-                        name="VisitNumber"
-                        value={formik.values.VisitNumber}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.VisitNumber &&
-                          Boolean(formik.errors.VisitNumber)
-                        }
-                        helperText={
-                          formik.touched.VisitNumber &&
-                          formik.errors.VisitNumber
-                        }
-                        required
                       />
                     </FormControl>
                   </Grid>
@@ -222,59 +198,69 @@ const CheckEligibility = () => {
                     </FormControl>
                   </Grid>
                   <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="Payor"
-                        variant="filled"
-                        size="small"
+                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                      <InputLabel id="Payor">Payor</InputLabel>
+                      <Select
+                        className="w-100"
+                        labelId="Payor"
                         id="Payor"
                         name="Payor"
                         value={formik.values.Payor}
+                        label="Payor"
                         onChange={formik.handleChange}
                         error={
                           formik.touched.Payor && Boolean(formik.errors.Payor)
                         }
-                        helperText={formik.touched.Payor && formik.errors.Payor}
+                        // helperText={formik.touched.Payor && formik.errors.Payor}
                         required
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="State"
-                        variant="filled"
-                        size="small"
-                        id="State"
-                        name="State"
-                        value={formik.values.State}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.State && Boolean(formik.errors.State)
-                        }
-                        helperText={formik.touched.State && formik.errors.State}
-                      />
-                      <FormHelperText />
+                      >
+                        <MenuItem value="Humana">Humana</MenuItem>
+                        <MenuItem value="UHC">UHC</MenuItem>
+                        <MenuItem value="Cetna">Cetna</MenuItem>
+                      </Select>
                     </FormControl>
                   </Grid>
                 </Grid>
-              </ThemeProvider>
 
-              <div className="mx-auto mt-5 flex justify-center">
-                <button
-                  className="btn primary"
-                  type="submit"
-                  style={{ marginRight: "10px" }}
-                >
-                  Check Eligibility{" "}
-                </button>
-                <button className="btn ghost" type="submit">
-                  Clear
-                </button>
+                <div className="mx-auto mt-5 flex justify-center">
+                  <button
+                    className="btn primary"
+                    type="submit"
+                    style={{ marginRight: "10px" }}
+                  >
+                    Check Eligibility{" "}
+                  </button>
+                  <button className="btn ghost" type="submit">
+                    Clear
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+            {eligible ? <PriorAuth /> : ""}
+          </div>
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              This is a success message!
+            </Alert>
+          </Snackbar>
+          <Snackbar
+            open={notEligible}
+            autoHideDuration={3000}
+            onClose={handleClose}
+          >
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              This is a success message!
+            </Alert>
+          </Snackbar>
+        </ThemeProvider>
       </div>
     </main>
   );

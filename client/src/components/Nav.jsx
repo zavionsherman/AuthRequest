@@ -4,7 +4,7 @@ const Nav = () => {
   return (
     <nav className="py-5 px-7">
       <div className="logo">
-        <img src="/logo192.png" alt="logo" />
+        <img src="/logo_phcn_final.png" alt="logo" />
       </div>
     </nav>
   );

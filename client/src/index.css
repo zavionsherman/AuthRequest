@@ -15,6 +15,7 @@ body {
   grid-template-columns: 1fr;
   grid-template-areas: "nav""main""footer";
   grid-template-rows: 1fr 80px;
+  /* background-color: #1D4289; */
 
 }
 
@@ -41,7 +42,6 @@ code {
   border-radius: 18px;
   border: 1px solid;
   text-transform: uppercase;
-  font-size: 15px;
   font-weight: 700;
   min-width: 120px;
   
@@ -64,6 +64,10 @@ code {
   border: 1px solid #245ecc
 }
 
+form {
+  border: 1px solid #A4A4A4 ;
+  border-radius: 8px;
+}
 
 .form-bg {
   background-color: #e2f4ff;
@@ -75,11 +79,10 @@ code {
 .bg {
   background-color: rgb(255, 255, 255);
   max-width: 710px;
-  margin: 0 auto;
   border-radius: 8px;
 }
 
 .logo {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
 }
