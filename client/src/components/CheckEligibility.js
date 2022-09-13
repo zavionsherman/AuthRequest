@@ -111,11 +111,22 @@ const CheckEligibility = (props) => {
               className="my-5 p-4 md:p-7 bg "
             >
               <div className="mx-auto">
+                <div className="font-semibold text-sm mb-2">
+                  Member Details:
+                </div>
+                <div className="text-gray-400 text-xs">
+                  Please enter member details to check insurance eligibility.
+                </div>
+                <div className="mb-2">
+                  <span className="text-rose-600 text-xs">
+                    * fields are required
+                  </span>
+                </div>
                 <Grid container rowSpacing={4} columnSpacing={{ xs: 0, sm: 2 }}>
                   <Grid item>
                     <FormControl>
                       <TextField
-                        label="First Name"
+                        label="First Name:"
                         variant="filled"
                         size="small"
                         id="firstName"
@@ -136,7 +147,7 @@ const CheckEligibility = (props) => {
                   <Grid item>
                     <FormControl>
                       <TextField
-                        label="Last Name"
+                        label="Last Name:"
                         variant="filled"
                         size="small"
                         id="lastName"
@@ -157,7 +168,7 @@ const CheckEligibility = (props) => {
                   <Grid item>
                     <FormControl>
                       <TextField
-                        label="Date of Birth"
+                        label="Date of Birth:"
                         variant="filled"
                         size="small"
                         id="DateOfBirth"
@@ -172,13 +183,14 @@ const CheckEligibility = (props) => {
                           formik.touched.DateOfBirth &&
                           formik.errors.DateOfBirth
                         }
+                        required
                       />
                     </FormControl>
                   </Grid>
                   <Grid item>
                     <FormControl>
                       <TextField
-                        label="Service Begin"
+                        label="Service Begin:"
                         variant="filled"
                         size="small"
                         id="ServiceBegin"
@@ -230,9 +242,6 @@ const CheckEligibility = (props) => {
                   >
                     Check Eligibility{" "}
                   </button>
-                  <button className="btn ghost" type="submit">
-                    Clear
-                  </button>
                 </div>
               </div>
             </form>
@@ -244,7 +253,7 @@ const CheckEligibility = (props) => {
               severity="success"
               sx={{ width: "100%" }}
             >
-              This is a success message!
+              Patient is eligible!
             </Alert>
           </Snackbar>
           <Snackbar
@@ -254,10 +263,10 @@ const CheckEligibility = (props) => {
           >
             <Alert
               onClose={handleClose}
-              severity="success"
+              severity="warning"
               sx={{ width: "100%" }}
             >
-              This is a success message!
+              Patient is not eligible!
             </Alert>
           </Snackbar>
         </ThemeProvider>

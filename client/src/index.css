@@ -8,7 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 12px;
+  /* font-size: 12px; */
   height: 100%;
   display: grid;
   grid-gap: 10px;
@@ -28,7 +28,6 @@ main {
 footer {
   grid-area: footer;
   position: absolute;
-  bottom: 0;
 }
 
 
@@ -44,6 +43,7 @@ code {
   text-transform: uppercase;
   font-weight: 700;
   min-width: 120px;
+  font-size: 15px;
   
 }
 .btn.primary:hover {

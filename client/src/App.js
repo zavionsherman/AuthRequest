@@ -7,7 +7,7 @@ function App() {
     <>
       <Nav />
       <CheckEligibility />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
