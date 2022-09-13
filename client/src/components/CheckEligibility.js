@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import {
   FormControl,
+  FormHelperText,
   Grid,
   TextField,
   InputLabel,
@@ -23,7 +24,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const CheckEligibility = (props) => {
-  const [eligible, setEligible] = useState(false);
+  const [eligible, setEligible] = useState(true);
   const [open, setOpen] = useState(false);
   const [notEligible, setNotEligible] = useState(false);
 
@@ -75,12 +76,12 @@ const CheckEligibility = (props) => {
         setTimeout(() => {
           setEligible(true);
           setOpen(true);
-        }, 3000);
+        }, 1500);
       } else {
         setTimeout(() => {
           setEligible(false);
           setNotEligible(true);
-        }, 3000);
+        }, 1500);
       }
     },
   });
@@ -104,6 +105,9 @@ const CheckEligibility = (props) => {
     <main>
       <div className="container mx-auto my-5">
         <div className="text-3xl font-bold text-center my-4"></div>
+        <div className="text-lg font-bold text-center mb-4">
+          Prior Authorization Form
+        </div>
         <ThemeProvider theme={theme}>
           <div className="form-bg p-5">
             <form
@@ -122,50 +126,55 @@ const CheckEligibility = (props) => {
                     * fields are required
                   </span>
                 </div>
-                <Grid container rowSpacing={4} columnSpacing={{ xs: 0, sm: 2 }}>
-                  <Grid item>
+                <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2 }}>
+                  <Grid item xs={6} sm={4}>
                     <FormControl>
-                      <TextField
-                        label="First Name:"
-                        variant="filled"
-                        size="small"
-                        id="firstName"
-                        name="firstName"
-                        value={formik.values.firstName}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.firstName &&
-                          Boolean(formik.errors.firstName)
-                        }
-                        helperText={
-                          formik.touched.firstName && formik.errors.firstName
-                        }
-                        required
-                      />
+                      <div className="md:w-full">
+                        <TextField
+                          label="First Name:"
+                          variant="filled"
+                          size="small"
+                          id="firstName"
+                          name="firstName"
+                          value={formik.values.firstName}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.firstName &&
+                            Boolean(formik.errors.firstName)
+                          }
+                          helperText={
+                            formik.touched.firstName && formik.errors.firstName
+                          }
+                          required
+                        />
+                      </div>
                     </FormControl>
                   </Grid>
-                  <Grid item>
+
+                  <Grid item xs={6} sm={4}>
                     <FormControl>
-                      <TextField
-                        label="Last Name:"
-                        variant="filled"
-                        size="small"
-                        id="lastName"
-                        name="lastName"
-                        value={formik.values.lastName}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.lastName &&
-                          Boolean(formik.errors.lastName)
-                        }
-                        helperText={
-                          formik.touched.lastName && formik.errors.lastName
-                        }
-                        required
-                      />
+                      <div className="md:w-full">
+                        <TextField
+                          label="Last Name:"
+                          variant="filled"
+                          size="small"
+                          id="lastName"
+                          name="lastName"
+                          value={formik.values.lastName}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.lastName &&
+                            Boolean(formik.errors.lastName)
+                          }
+                          helperText={
+                            formik.touched.lastName && formik.errors.lastName
+                          }
+                          required
+                        />
+                      </div>
                     </FormControl>
                   </Grid>
-                  <Grid item>
+                  <Grid item sm={4}>
                     <FormControl>
                       <TextField
                         label="Date of Birth:"
@@ -173,7 +182,9 @@ const CheckEligibility = (props) => {
                         size="small"
                         id="DateOfBirth"
                         name="DateOfBirth"
+                        type="date"
                         value={formik.values.DateOfBirth}
+                        InputLabelProps={{ shrink: true, required: true }}
                         onChange={formik.handleChange}
                         error={
                           formik.touched.DateOfBirth &&
@@ -195,6 +206,8 @@ const CheckEligibility = (props) => {
                         size="small"
                         id="ServiceBegin"
                         name="ServiceBegin"
+                        type="date"
+                        InputLabelProps={{ shrink: true, required: true }}
                         value={formik.values.ServiceBegin}
                         onChange={formik.handleChange}
                         error={
@@ -210,26 +223,34 @@ const CheckEligibility = (props) => {
                     </FormControl>
                   </Grid>
                   <Grid item>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <FormControl
+                      variant="filled"
+                      size="small"
+                      sx={{ width: 340 }}
+                      required
+                    >
                       <InputLabel id="Payor">Payor</InputLabel>
                       <Select
-                        className="w-100"
                         labelId="Payor"
                         id="Payor"
                         name="Payor"
                         value={formik.values.Payor}
                         label="Payor"
                         onChange={formik.handleChange}
+                        InputLabelProps={{ shrink: true, required: true }}
                         error={
                           formik.touched.Payor && Boolean(formik.errors.Payor)
                         }
-                        // helperText={formik.touched.Payor && formik.errors.Payor}
-                        required
+                        helperText={formik.touched.Payor && formik.errors.Payor}
                       >
                         <MenuItem value="Humana">Humana</MenuItem>
                         <MenuItem value="UHC">UHC</MenuItem>
                         <MenuItem value="Cetna">Cetna</MenuItem>
                       </Select>
+                      <FormHelperText>
+                        * If payor is not in the list, we are not contracted
+                        with them.
+                      </FormHelperText>
                     </FormControl>
                   </Grid>
                 </Grid>

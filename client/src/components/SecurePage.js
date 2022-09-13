@@ -14,10 +14,10 @@ const SecurePage = () => {
 
   return (
     <div className="container text-center mx-auto p-4 lg:w-5/12 mt-4">
-      <h3 className="font-bold text-lg mb-5 text-PHCN-light-blue">
+      <h3 className="font-bold text-xl mb-5 text-PHCN-light-blue">
         Welcome to PHCN's Referral Request Site
       </h3>
-      <p>
+      <p className="text-sm mb-3">
         This is where you will be able to request a referral via PHCN’s secure
         Referral Request form. Within this form, you will be able to check
         eligibility for Home Health services and complete the necessary
@@ -25,10 +25,10 @@ const SecurePage = () => {
         will receive a confirmation number that you can use to check referral
         status.
       </p>
-      <div className="bg-PHCN-light-blue mt-2 py-1 px-4 border border-PHCN-primary">
+      <div className="bg-PHCN-light-blue mt-2 py-2 px-4 border border-PHCN-primary">
         <div className="py-2">
           <h3 className="font-bold mb-2">Privacy and Security</h3>
-          <p>
+          <p className="text-sm">
             PHCN is committed to maintaining the confidentiality, privacy and
             security of its patients’ protected health information. Consistent
             with the Health Insurance Portability and Accountability Act
@@ -38,7 +38,7 @@ const SecurePage = () => {
             provided here. The notice describes how protected health information
             may be used and disclosed and how to access PHI.
           </p>
-          <p>
+          <p className="text-sm">
             We are committed to being conscientious and accountable when
             handling confidential company information. In addition, because of
             its confidential nature, business and health information must be
@@ -50,7 +50,7 @@ const SecurePage = () => {
         </div>
         <div>
           <h3 className="font-bold my-2">Website Content</h3>
-          <p className="mb-5">
+          <p className="mb-5 text-sm">
             PHCN may change, add or remove some or all of the Content on this
             website at any time. In addition, please note that although our goal
             is to provide accurate information, certain features that may be
@@ -70,7 +70,10 @@ const SecurePage = () => {
             />
           }
         />
-        <div className="inline">I agree</div>
+        <div className="inline text-sm italic">
+          By clicking I agree, you agree to our Privacy and Website Content
+          statements.
+        </div>
       </div>
       <button
         className="btn primary mt-5 disabled:opacity-25"

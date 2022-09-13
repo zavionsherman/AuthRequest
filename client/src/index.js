@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import SecurePage from "./components/SecurePage";
+import CheckStatus from "./components/CheckStatus";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,6 +14,7 @@ root.render(
       <Routes>
         <Route path="/" element={<SecurePage />} />
         <Route path="/eligibility" element={<App />} />
+        <Route path="/status" element={<CheckStatus />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

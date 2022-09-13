@@ -1,7 +1,16 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { FormControl, Grid, TextField, Box } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  Grid,
+  TextField,
+  Box,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 const PriorAuth = () => {
   const validationSchema = yup.object({
@@ -58,135 +67,147 @@ const PriorAuth = () => {
             Address present in the referral details availiable or confirmed by
             patient.
           </div>
-          <Grid container rowSpacing={4} columnSpacing={{ xs: 2, sm: 2 }}>
-            <Grid item>
+          <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2 }}>
+            <Grid item xs={6} sm={4}>
               <FormControl>
-                <TextField
-                  label="Street Name:"
-                  variant="filled"
-                  size="small"
-                  id="streetName"
-                  name="streetName"
-                  value={formik.values.streetName}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.streetName &&
-                    Boolean(formik.errors.streetName)
-                  }
-                  helperText={
-                    formik.touched.streetName && formik.errors.streetName
-                  }
-                  required
-                />
+                <div className="md:w-full">
+                  <TextField
+                    label="Street Name:"
+                    variant="filled"
+                    size="small"
+                    id="streetName"
+                    name="streetName"
+                    value={formik.values.streetName}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.streetName &&
+                      Boolean(formik.errors.streetName)
+                    }
+                    helperText={
+                      formik.touched.streetName && formik.errors.streetName
+                    }
+                    required
+                  />
+                </div>
               </FormControl>
             </Grid>
-            <Grid item>
+            <Grid item xs={3} sm={4}>
               <FormControl>
-                <TextField
-                  label="City:"
-                  variant="filled"
-                  size="small"
-                  id="city"
-                  name="city"
-                  value={formik.values.city}
-                  onChange={formik.handleChange}
-                  error={formik.touched.city && Boolean(formik.errors.city)}
-                  helperText={formik.touched.city && formik.errors.city}
-                  required
-                />
+                <div className="md:w-full">
+                  <TextField
+                    label="City:"
+                    variant="filled"
+                    size="small"
+                    id="city"
+                    name="city"
+                    value={formik.values.city}
+                    onChange={formik.handleChange}
+                    error={formik.touched.city && Boolean(formik.errors.city)}
+                    helperText={formik.touched.city && formik.errors.city}
+                    required
+                  />
+                </div>
               </FormControl>
             </Grid>
-            <Grid item>
+            <Grid item xs={3} sm={4}>
               <FormControl>
-                <TextField
-                  label="State:"
-                  variant="filled"
-                  size="small"
-                  id="state"
-                  name="state"
-                  value={formik.values.state}
-                  onChange={formik.handleChange}
-                  error={formik.touched.state && Boolean(formik.errors.state)}
-                  helperText={formik.touched.state && formik.errors.state}
-                  required
-                />
+                <div className="md:w-full">
+                  <TextField
+                    label="State:"
+                    variant="filled"
+                    size="small"
+                    id="state"
+                    name="state"
+                    value={formik.values.state}
+                    onChange={formik.handleChange}
+                    error={formik.touched.state && Boolean(formik.errors.state)}
+                    helperText={formik.touched.state && formik.errors.state}
+                    required
+                  />
+                </div>
               </FormControl>
             </Grid>
-            <Grid item>
+            <Grid item xs={6} sm={4}>
               <FormControl>
-                <TextField
-                  label="Postal Code:"
-                  variant="filled"
-                  size="small"
-                  id="postalCoder"
-                  name="postalCode"
-                  value={formik.values.postalCode}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.postalCode &&
-                    Boolean(formik.errors.postalCode)
-                  }
-                  helperText={
-                    formik.touched.postalCode && formik.errors.postalCode
-                  }
-                  required
-                />
+                <div className="md:w-full">
+                  <TextField
+                    label="Postal Code:"
+                    variant="filled"
+                    size="small"
+                    id="postalCoder"
+                    name="postalCode"
+                    value={formik.values.postalCode}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.postalCode &&
+                      Boolean(formik.errors.postalCode)
+                    }
+                    helperText={
+                      formik.touched.postalCode && formik.errors.postalCode
+                    }
+                    required
+                  />
+                </div>
               </FormControl>
             </Grid>
-            <Grid item>
+            <Grid item xs={6} sm={4}>
               <FormControl>
-                <TextField
-                  label="Phone Number:"
-                  variant="filled"
-                  size="small"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formik.values.phoneNumber}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.phoneNumber &&
-                    Boolean(formik.errors.phoneNumber)
-                  }
-                  helperText={
-                    formik.touched.phoneNumber && formik.errors.phoneNumber
-                  }
-                  required
-                />
+                <div className="md:w-full">
+                  <TextField
+                    label="Phone Number:"
+                    variant="filled"
+                    size="small"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formik.values.phoneNumber}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.phoneNumber &&
+                      Boolean(formik.errors.phoneNumber)
+                    }
+                    helperText={
+                      formik.touched.phoneNumber && formik.errors.phoneNumber
+                    }
+                    required
+                  />
+                </div>
               </FormControl>
             </Grid>
             <div className="my-5 p-4 md:p-5 bg">
               <Box>
                 <div className="font-semibold text-sm mb-2">Plan Details:</div>
                 <div className="text-gray-400 text-xs mb-2">
-                  Please add the insurance plan details availiable from teh
+                  Please add the insurance plan details availiable from the
                   referral source / patient record.
                 </div>
               </Box>
-              <Grid container rowSpacing={4} columnSpacing={{ xs: 2, sm: 2 }}>
-                <Grid item>
+              <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2 }}>
+                <Grid item xs={6} sm={4}>
                   <FormControl>
-                    <TextField
-                      label="Health Plan Name:"
-                      variant="filled"
-                      size="small"
-                      id="healthPlanName"
-                      name="healthPlanName"
-                      value={formik.values.healthPlanName}
-                      onChange={formik.handleChange}
-                      error={
-                        formik.touched.healthPlanName &&
-                        Boolean(formik.errors.healthPlanName)
-                      }
-                      helperText={
-                        formik.touched.healthPlanName &&
-                        formik.errors.healthPlanName
-                      }
-                      required
-                    />
+                    <div className="md:w-full">
+                      <TextField
+                        label="Health Plan Name:"
+                        variant="filled"
+                        size="small"
+                        id="healthPlanName"
+                        name="healthPlanName"
+                        value={formik.values.healthPlanName}
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.healthPlanName &&
+                          Boolean(formik.errors.healthPlanName)
+                        }
+                        helperText={
+                          formik.touched.healthPlanName &&
+                          formik.errors.healthPlanName
+                        }
+                        required
+                      />
+                    </div>
                   </FormControl>
                 </Grid>
-                <Grid item>
-                  <FormControl fullWidth>
+                <Grid item xs={6} sm={4}>
+                  <FormControl>
                     <TextField
                       label="Insurance Policy ID:"
                       variant="filled"
@@ -207,10 +228,37 @@ const PriorAuth = () => {
                     />
                   </FormControl>
                 </Grid>
-                <Grid item>
-                  <FormControl>
+                <Grid item xs={4}>
+                  <FormControl
+                    sx={{ minWidth: 125 }}
+                    variant="filled"
+                    size="small"
+                    required
+                  >
+                    <InputLabel id="Gender">Gender</InputLabel>
+                    <Select
+                      labelId="Gender"
+                      id="Gender"
+                      name="Gender"
+                      value={formik.values.gender}
+                      onChange={formik.handleChange}
+                      InputLabelProps={{ shrink: true, required: true }}
+                      error={
+                        formik.touched.gender && Boolean(formik.errors.gender)
+                      }
+                      helperText={formik.touched.gender && formik.errors.gender}
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={8}>
+                  <FormControl
+                  // </Grid>sx={{ width: 360 }}
+                  >
                     <TextField
-                      label="Medicare Beneficiary Identifier:"
+                      label="MBI:"
                       variant="filled"
                       size="small"
                       id="mbi"
@@ -221,24 +269,9 @@ const PriorAuth = () => {
                       helperText={formik.touched.mbi && formik.errors.mbi}
                       required
                     />
-                  </FormControl>
-                </Grid>
-                <Grid item>
-                  <FormControl>
-                    <TextField
-                      label="Gender:"
-                      variant="filled"
-                      size="small"
-                      id="gender"
-                      name="gender"
-                      value={formik.values.gender}
-                      onChange={formik.handleChange}
-                      error={
-                        formik.touched.gender && Boolean(formik.errors.gender)
-                      }
-                      helperText={formik.touched.gender && formik.errors.gender}
-                      required
-                    />
+                    <FormHelperText>
+                      *Medicare Beneficiary Identifier Number
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
               </Grid>
@@ -251,7 +284,7 @@ const PriorAuth = () => {
             type="submit"
             style={{ marginRight: "10px" }}
           >
-            Create Referral{" "}
+            Request Authorization{" "}
           </button>
         </div>
       </form>
