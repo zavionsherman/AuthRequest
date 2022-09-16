@@ -76,9 +76,11 @@ const SecurePage = () => {
         </div>
       </div>
       <button
-        className="btn primary mt-5 disabled:opacity-25"
+        className="btn primary mt-5 disabled:opacity-25 g-recaptch"
         disabled={acknowledge ? false : true}
         onClick={handleSubmit}
+        data-sitekey="6LcGjPchAAAAAGzvp-G-606YetJe7qq_gaCGvi-i"
+        data-callback="handleSubmit"
       >
         Start
       </button>

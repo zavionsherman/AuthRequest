@@ -109,10 +109,10 @@ const CheckEligibility = (props) => {
           Prior Authorization Form
         </div>
         <ThemeProvider theme={theme}>
-          <div className="form-bg p-5">
+          <div className="bg p-5">
             <form
               onSubmit={formik.handleSubmit}
-              className="my-5 p-4 md:p-7 bg "
+              className="my-5 p-4 md:p-7 form-bg "
             >
               <div className="mx-auto">
                 <div className="font-semibold text-sm mb-2">
@@ -127,7 +127,7 @@ const CheckEligibility = (props) => {
                   </span>
                 </div>
                 <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2 }}>
-                  <Grid item xs={6} sm={4}>
+                  <Grid item xs={6} sm={4} md={2}>
                     <FormControl>
                       <div className="md:w-full">
                         <TextField
@@ -151,7 +151,7 @@ const CheckEligibility = (props) => {
                     </FormControl>
                   </Grid>
 
-                  <Grid item xs={6} sm={4}>
+                  <Grid item xs={6} sm={4} md={2}>
                     <FormControl>
                       <div className="md:w-full">
                         <TextField
@@ -174,7 +174,7 @@ const CheckEligibility = (props) => {
                       </div>
                     </FormControl>
                   </Grid>
-                  <Grid item sm={4}>
+                  <Grid item>
                     <FormControl>
                       <TextField
                         label="Date of Birth:"
@@ -226,7 +226,7 @@ const CheckEligibility = (props) => {
                     <FormControl
                       variant="filled"
                       size="small"
-                      sx={{ width: 340 }}
+                      sx={{ width: 300 }}
                       required
                     >
                       <InputLabel id="Payor">Payor</InputLabel>
@@ -237,11 +237,11 @@ const CheckEligibility = (props) => {
                         value={formik.values.Payor}
                         label="Payor"
                         onChange={formik.handleChange}
-                        InputLabelProps={{ shrink: true, required: true }}
+                        inputlabelprops={{ shrink: true, required: true }}
                         error={
                           formik.touched.Payor && Boolean(formik.errors.Payor)
                         }
-                        helperText={formik.touched.Payor && formik.errors.Payor}
+                        helpertext={formik.touched.Payor && formik.errors.Payor}
                       >
                         <MenuItem value="Humana">Humana</MenuItem>
                         <MenuItem value="UHC">UHC</MenuItem>

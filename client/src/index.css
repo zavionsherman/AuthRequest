@@ -69,17 +69,18 @@ form {
   border-radius: 8px;
 }
 
-.form-bg {
+.bg {
   background-color: #e2f4ff;
-  max-width: fit-content;
+  max-width: 1300px;
   margin: auto;
   border-radius: 8px;
 }
 
-.bg {
+.form-bg {
   background-color: rgb(255, 255, 255);
-  max-width: 710px;
+  /* max-width: 1200px; */
   border-radius: 8px;
+  /* max-width: fit-content; */
 }
 
 .logo {
