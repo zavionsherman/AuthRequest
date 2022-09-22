@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
+import { useFormik, Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import {
   FormControl,
@@ -14,7 +14,7 @@ import {
   Snackbar,
   Select,
 } from "@mui/material";
-
+import Textfield from "./FormsUI/Textfield";
 import PriorAuth from "./PriorAuth";
 import MuiAlert from "@mui/material/Alert";
 import { useEffect } from "react";
@@ -46,28 +46,30 @@ const CheckEligibility = (props) => {
 
     setOpen(false);
   };
-
-  const validationSchema = yup.object({
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    DateOfBirth: "",
+    ServiceBegin: "",
+    Payor: "",
+  };
+  const validationSchema = yup.object().shape({
     firstName: yup
       .string("Enter your first name")
       .required("First name is required"),
     lastName: yup
       .string("Enter your last name")
       .required("Last name is required"),
-    DateOfBirth: yup.date("Enter Date of Birth number"),
+    DateOfBirth: yup
+      .date("Enter Date of Birth number")
+      .required("Date of Birth is required"),
     ServiceBegin: yup
       .date("Enter service begin date")
       .required("Service begin date is required"),
     Payor: yup.string("Enter Payor").required("Payor is required"),
   });
   const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      DateOfBirth: "",
-      ServiceBegin: "",
-      Payor: "",
-    },
+    initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
@@ -110,162 +112,201 @@ const CheckEligibility = (props) => {
         </div>
         <ThemeProvider theme={theme}>
           <div className="bg p-5">
-            <form
-              onSubmit={formik.handleSubmit}
-              className="my-5 p-4 md:p-7 form-bg "
+            <Formik
+              initialValues={initialValues}
+              onSubmit={(values, formikHelpers) => {
+                console.log(values);
+                formikHelpers.resetForm();
+              }}
+              validationSchema={validationSchema}
             >
-              <div className="mx-auto">
-                <div className="font-semibold text-sm mb-2">
-                  Member Details:
-                </div>
-                <div className="text-gray-400 text-xs">
-                  Please enter member details to check insurance eligibility.
-                </div>
-                <div className="mb-2">
-                  <span className="text-rose-600 text-xs">
-                    * fields are required
-                  </span>
-                </div>
-                <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2 }}>
-                  <Grid item xs={6} sm={4} md={2}>
-                    <FormControl>
-                      <div className="md:w-full">
-                        <TextField
-                          label="First Name:"
-                          variant="filled"
-                          size="small"
-                          id="firstName"
-                          name="firstName"
-                          value={formik.values.firstName}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.firstName &&
-                            Boolean(formik.errors.firstName)
-                          }
-                          helperText={
-                            formik.touched.firstName && formik.errors.firstName
-                          }
-                          required
-                        />
-                      </div>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={6} sm={4} md={2}>
-                    <FormControl>
-                      <div className="md:w-full">
-                        <TextField
-                          label="Last Name:"
-                          variant="filled"
-                          size="small"
-                          id="lastName"
-                          name="lastName"
-                          value={formik.values.lastName}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.lastName &&
-                            Boolean(formik.errors.lastName)
-                          }
-                          helperText={
-                            formik.touched.lastName && formik.errors.lastName
-                          }
-                          required
-                        />
-                      </div>
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="Date of Birth:"
-                        variant="filled"
-                        size="small"
-                        id="DateOfBirth"
-                        name="DateOfBirth"
-                        type="date"
-                        value={formik.values.DateOfBirth}
-                        InputLabelProps={{ shrink: true, required: true }}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.DateOfBirth &&
-                          Boolean(formik.errors.DateOfBirth)
-                        }
-                        helperText={
-                          formik.touched.DateOfBirth &&
-                          formik.errors.DateOfBirth
-                        }
-                        required
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <TextField
-                        label="Service Begin:"
-                        variant="filled"
-                        size="small"
-                        id="ServiceBegin"
-                        name="ServiceBegin"
-                        type="date"
-                        InputLabelProps={{ shrink: true, required: true }}
-                        value={formik.values.ServiceBegin}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.ServiceBegin &&
-                          Boolean(formik.errors.ServiceBegin)
-                        }
-                        helperText={
-                          formik.touched.ServiceBegin &&
-                          formik.errors.ServiceBegin
-                        }
-                        required
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid item>
-                    <FormControl
-                      variant="filled"
-                      size="small"
-                      sx={{ width: 300 }}
-                      required
-                    >
-                      <InputLabel id="Payor">Payor</InputLabel>
-                      <Select
-                        labelId="Payor"
-                        id="Payor"
-                        name="Payor"
-                        value={formik.values.Payor}
-                        label="Payor"
-                        onChange={formik.handleChange}
-                        inputlabelprops={{ shrink: true, required: true }}
-                        error={
-                          formik.touched.Payor && Boolean(formik.errors.Payor)
-                        }
-                        helpertext={formik.touched.Payor && formik.errors.Payor}
-                      >
-                        <MenuItem value="Humana">Humana</MenuItem>
-                        <MenuItem value="UHC">UHC</MenuItem>
-                        <MenuItem value="Cetna">Cetna</MenuItem>
-                      </Select>
-                      <FormHelperText>
-                        * If payor is not in the list, we are not contracted
-                        with them.
-                      </FormHelperText>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-
-                <div className="mx-auto mt-5 flex justify-center">
-                  <button
-                    className="btn primary"
-                    type="submit"
-                    style={{ marginRight: "10px" }}
+              {({ errors, isValid, touched, dirty }) => (
+                <div className="my-2 p-4 md:p-7 form-bg">
+                  <Form
+                    onSubmit={formik.handleSubmit}
+                    className="my-2 p-4 md:p-7 form-bg "
                   >
-                    Check Eligibility{" "}
-                  </button>
+                    <div className="mx-auto">
+                      <div className="font-semibold text-sm mb-2">
+                        Member Details:
+                      </div>
+                      <div className="text-gray-400 text-xs">
+                        Please enter member details to check insurance
+                        eligibility.
+                      </div>
+                      <div className="mb-2">
+                        <span className="text-rose-600 text-xs">
+                          * fields are required
+                        </span>
+                      </div>
+                      <Grid
+                        container
+                        rowSpacing={4}
+                        columnSpacing={{ xs: 1, sm: 2 }}
+                      >
+                        <Grid item xs={6} sm={4} md={2}>
+                          <FormControl>
+                            <div className="md:w-full">
+                              <Field
+                                as={TextField}
+                                label="First Name:"
+                                variant="filled"
+                                size="small"
+                                id="firstName"
+                                name="firstName"
+                                disabled={eligible}
+                                value={formik.values.firstName}
+                                onChange={formik.handleChange}
+                                InputLabelProps={{
+                                  required: true,
+                                }}
+                                error={
+                                  Boolean(formik.touched.firstName) &&
+                                  Boolean(formik.errors.firstName)
+                                }
+                                helperText={
+                                  formik.touched.firstName &&
+                                  formik.errors.firstName &&
+                                  String(formik.errors.firstName)
+                                }
+                              />
+                            </div>
+                          </FormControl>
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} md={2}>
+                          <FormControl>
+                            <div className="md:w-full">
+                              <Field
+                                as={TextField}
+                                label="Last Name:"
+                                variant="filled"
+                                size="small"
+                                id="lastName"
+                                name="lastName"
+                                disabled={eligible}
+                                value={formik.values.lastName}
+                                onChange={formik.handleChange}
+                                InputLabelProps={{
+                                  required: true,
+                                }}
+                                error={
+                                  formik.touched.lastName &&
+                                  Boolean(formik.errors.lastName)
+                                }
+                                helperText={
+                                  formik.touched.lastName &&
+                                  formik.errors.lastName
+                                }
+                              />
+                            </div>
+                          </FormControl>
+                        </Grid>
+                        <Grid item>
+                          <FormControl>
+                            <Field
+                              as={TextField}
+                              label="Date of Birth:"
+                              variant="filled"
+                              size="small"
+                              id="DateOfBirth"
+                              name="DateOfBirth"
+                              disabled={eligible}
+                              type="date"
+                              value={formik.values.DateOfBirth}
+                              InputLabelProps={{ shrink: true, required: true }}
+                              onChange={formik.handleChange}
+                              error={
+                                formik.touched.DateOfBirth &&
+                                Boolean(formik.errors.DateOfBirth)
+                              }
+                              helperText={
+                                formik.touched.DateOfBirth &&
+                                formik.errors.DateOfBirth
+                              }
+                              //  required
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item>
+                          <FormControl>
+                            <Field
+                              as={TextField}
+                              label="Service Begin:"
+                              variant="filled"
+                              size="small"
+                              id="ServiceBegin"
+                              name="ServiceBegin"
+                              type="date"
+                              disabled={eligible}
+                              InputLabelProps={{ shrink: true, required: true }}
+                              value={formik.values.ServiceBegin}
+                              onChange={formik.handleChange}
+                              error={
+                                formik.touched.ServiceBegin &&
+                                Boolean(formik.errors.ServiceBegin)
+                              }
+                              helperText={
+                                formik.touched.ServiceBegin &&
+                                formik.errors.ServiceBegin
+                              }
+                              //  required
+                            />
+                          </FormControl>
+                        </Grid>
+                        <Grid item>
+                          <FormControl
+                            variant="filled"
+                            size="small"
+                            sx={{ width: 300 }}
+                            //required
+                          >
+                            <InputLabel id="Payor">Payor</InputLabel>
+                            <Select
+                              labelId="Payor"
+                              id="Payor"
+                              name="Payor"
+                              value={formik.values.Payor}
+                              label="Payor"
+                              disabled={eligible}
+                              onChange={formik.handleChange}
+                              error={
+                                formik.touched.Payor &&
+                                Boolean(formik.errors.Payor)
+                              }
+                            >
+                              <MenuItem value="Humana">Humana</MenuItem>
+                              <MenuItem value="UHC">UHC</MenuItem>
+                              <MenuItem value="Cetna">Cetna</MenuItem>
+                            </Select>
+                            <FormHelperText>
+                              * If payor is not in the list, we are not
+                              contracted with them.
+                            </FormHelperText>
+                            <FormHelperText>
+                              <span className="text-red-500">
+                                {formik.touched.Payor && formik.errors.Payor}
+                              </span>
+                            </FormHelperText>
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+
+                      <div className="mx-auto mt-5 flex justify-center">
+                        <button
+                          className="btn primary"
+                          type="submit"
+                          style={{ marginRight: "10px" }}
+                        >
+                          Check Eligibility{" "}
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
                 </div>
-              </div>
-            </form>
+              )}
+            </Formik>
+
             {eligible ? <PriorAuth /> : ""}
           </div>
           <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
