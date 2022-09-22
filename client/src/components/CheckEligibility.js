@@ -24,7 +24,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const CheckEligibility = (props) => {
-  const [eligible, setEligible] = useState(true);
+  const [eligible, setEligible] = useState(false);
   const [open, setOpen] = useState(false);
   const [notEligible, setNotEligible] = useState(false);
 
@@ -104,14 +104,14 @@ const CheckEligibility = (props) => {
   });
 
   return (
-    <main>
+    <main className="mt-12">
       <div className="container mx-auto my-5">
         <div className="text-3xl font-bold text-center my-4"></div>
-        <div className="text-lg font-bold text-center mb-4">
+        <div className="text-lg font-bold text-center mb-8">
           Prior Authorization Form
         </div>
         <ThemeProvider theme={theme}>
-          <div className="bg p-5">
+          <div className="bg p-5 ">
             <Formik
               initialValues={initialValues}
               onSubmit={(values, formikHelpers) => {
