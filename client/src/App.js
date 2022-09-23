@@ -8,7 +8,6 @@ function App() {
     <>
       <Nav />
       <CheckEligibility />
-      {/* <NewCheck /> */}
       <Footer />
     </>
   );

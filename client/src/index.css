@@ -86,3 +86,7 @@ code {
 .logo {
   width: 100px;
 }
+
+.Mui-active {
+  color: "#8cc638",
+}

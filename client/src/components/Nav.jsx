@@ -7,9 +7,9 @@ const Nav = () => {
       <div className="logo">
         <img src="/logo_phcn_final.png" alt="logo" />
       </div>
-      <div className="">
+      {/* <div className="">
         <Link to={'/status'}>Check Referral Status</Link> 
-      </div>
+      </div> */}
     </nav>
   );
 };

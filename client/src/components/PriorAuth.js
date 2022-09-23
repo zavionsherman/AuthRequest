@@ -15,15 +15,15 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import Textfield from "./FormsUI/Textfield";
 import { validationSchema, initialValues } from "./data";
 
-const PriorAuth = () => {
+const PriorAuth = ({ handleNext }) => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(values);
+      handleNext();
     },
   });
   return (
@@ -32,6 +32,7 @@ const PriorAuth = () => {
         initialValues={initialValues}
         onSubmit={(values, formikHelpers) => {
           console.log(values);
+          handleNext();
           formikHelpers.resetForm();
         }}
         validationSchema={validationSchema}
@@ -45,63 +46,238 @@ const PriorAuth = () => {
               <div className="font-bold text-md mb-1">
                 Enter the following information.
               </div>
-              <div className="font-semibold text-sm mb-2">Member Details:</div>
-              <div className="text-gray-400 text-xs mb-4">
-                Address present in the referral details availiable or confirmed
-                by patient.
-              </div>
-
               <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2 }}>
-                {/* Date Request / Soc Date */}
-                <Grid item container columnSpacing={{ xs: 1, sm: 2 }}>
-                  <Grid item>
-                    <FormControl>
-                      <Field
-                        as={TextField}
-                        label="Date of Request:"
+                {/* Referral Source Information */}
+                <Grid item container>
+                  <Box>
+                    <div className="font-semibold text-sm mb-2">
+                      Referral Source:
+                    </div>
+                    <div className="text-gray-400 text-xs mb-2">
+                      Please enter the referral source information
+                    </div>
+                  </Box>
+                  <Grid
+                    container
+                    rowSpacing={2}
+                    columnSpacing={{ xs: 1, sm: 2 }}
+                  >
+                    <Grid item xs={6} sm={4} md={3}>
+                      <FormControl
+                        sx={{ minWidth: 270 }}
                         variant="filled"
                         size="small"
-                        id="dateOfRequest"
-                        name="dateOfRequest"
-                        type="date"
-                        value={formik.values.dateOfRequest}
-                        InputLabelProps={{ shrink: true, required: true }}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.dateOfRequest &&
-                          Boolean(formik.errors.dateOfRequest)
-                        }
-                        helperText={
-                          formik.touched.dateOfRequest &&
-                          formik.errors.dateOfRequest
-                        }
-                        //required
-                      />
-                    </FormControl>
+                      >
+                        <InputLabel id="source">Referral Source</InputLabel>
+                        <Select
+                          labelId="source"
+                          id="source"
+                          name="source"
+                          value={formik.values.source}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.source &&
+                            Boolean(formik.errors.source)
+                          }
+                        >
+                          <MenuItem value="English">Hospital</MenuItem>
+                          <MenuItem value="SNF/Rehab">SNF/Rehab</MenuItem>
+                          <MenuItem value="Spanish">MD Office</MenuItem>
+                          <MenuItem value="Other">Other</MenuItem>
+                        </Select>
+                        <FormHelperText>
+                          <span className="text-red-500">
+                            {formik.touched.source && formik.errors.source}
+                          </span>
+                        </FormHelperText>
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="Name:"
+                          variant="filled"
+                          size="small"
+                          id="sourceName"
+                          name="sourceName"
+                          type="text"
+                          value={formik.values.sourceName}
+                          InputLabelProps={{ required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.sourceName &&
+                            Boolean(formik.errors.sourceName)
+                          }
+                          helperText={
+                            formik.touched.sourceName &&
+                            formik.errors.sourceName
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="NPI:"
+                          variant="filled"
+                          size="small"
+                          id="sourceNPI"
+                          name="sourceNPI"
+                          type="text"
+                          value={formik.values.sourceNPI}
+                          InputLabelProps={{ required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.sourceNPI &&
+                            Boolean(formik.errors.sourceNPI)
+                          }
+                          helperText={
+                            formik.touched.sourceNPI && formik.errors.sourceNPI
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="Contact:"
+                          variant="filled"
+                          size="small"
+                          id="sourceContact"
+                          name="sourceContact"
+                          type="text"
+                          value={formik.values.sourceContact}
+                          InputLabelProps={{ required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.sourceContact &&
+                            Boolean(formik.errors.sourceContact)
+                          }
+                          helperText={
+                            formik.touched.sourceContact &&
+                            formik.errors.sourceContact
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="Phone:"
+                          variant="filled"
+                          size="small"
+                          id="sourcePhone"
+                          name="sourcePhone"
+                          type="text"
+                          value={formik.values.sourcePhone}
+                          InputLabelProps={{ required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.sourcePhone &&
+                            Boolean(formik.errors.sourcePhone)
+                          }
+                          helperText={
+                            formik.touched.sourcePhone &&
+                            formik.errors.sourcePhone
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="Fax:"
+                          variant="filled"
+                          size="small"
+                          id="sourceFax"
+                          name="sourceFax"
+                          type="text"
+                          value={formik.values.sourceFax}
+                          InputLabelProps={{ required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.sourceFax &&
+                            Boolean(formik.errors.sourceFax)
+                          }
+                          helperText={
+                            formik.touched.sourceFax && formik.errors.sourceFax
+                          }
+                        />
+                      </FormControl>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <FormControl>
-                      <Field
-                        as={TextField}
-                        label="SOC Date:"
-                        variant="filled"
-                        size="small"
-                        id="socDate"
-                        name="socDate"
-                        type="date"
-                        value={formik.values.socDate}
-                        InputLabelProps={{ shrink: true, required: true }}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.socDate &&
-                          Boolean(formik.errors.socDate)
-                        }
-                        helperText={
-                          formik.touched.socDate && formik.errors.socDate
-                        }
-                        // required
-                      />
-                    </FormControl>
+                </Grid>
+                {/* Date Request / Soc Date */}
+
+                <Grid item container>
+                  <Box>
+                    <div className="font-semibold text-sm mb-2">
+                      Member Details:
+                    </div>
+                    <div className="text-gray-400 text-xs mb-4">
+                      Please add Member Details that is present in the referral
+                      details and confirmed by patient.
+                    </div>
+                  </Box>
+                  <Grid
+                    container
+                    rowSpacing={2}
+                    columnSpacing={{ xs: 1, sm: 2 }}
+                  >
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="Date of Request:"
+                          variant="filled"
+                          size="small"
+                          id="dateOfRequest"
+                          name="dateOfRequest"
+                          type="date"
+                          value={formik.values.dateOfRequest}
+                          InputLabelProps={{ shrink: true, required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.dateOfRequest &&
+                            Boolean(formik.errors.dateOfRequest)
+                          }
+                          helperText={
+                            formik.touched.dateOfRequest &&
+                            formik.errors.dateOfRequest
+                          }
+                          //required
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid item>
+                      <FormControl>
+                        <Field
+                          as={TextField}
+                          label="SOC Date:"
+                          variant="filled"
+                          size="small"
+                          id="socDate"
+                          name="socDate"
+                          type="date"
+                          value={formik.values.socDate}
+                          InputLabelProps={{ shrink: true, required: true }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.socDate &&
+                            Boolean(formik.errors.socDate)
+                          }
+                          helperText={
+                            formik.touched.socDate && formik.errors.socDate
+                          }
+                          // required
+                        />
+                      </FormControl>
+                    </Grid>
                   </Grid>
                 </Grid>
                 {/* Address */}
@@ -551,6 +727,7 @@ const PriorAuth = () => {
                             name="opn"
                             value={formik.values.opn}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opn && Boolean(formik.errors.opn)
                             }
@@ -564,13 +741,14 @@ const PriorAuth = () => {
                         <div className="md:w-full">
                           <Field
                             as={TextField}
-                            label="Ordering Presribing NPI:"
+                            label="OP NPI:"
                             variant="filled"
                             size="small"
                             id="opNPI"
                             name="opNPI"
                             value={formik.values.opNPI}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opNPI &&
                               Boolean(formik.errors.opNPI)
@@ -594,6 +772,7 @@ const PriorAuth = () => {
                             name="opCity"
                             value={formik.values.opCity}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opCity &&
                               Boolean(formik.errors.opCity)
@@ -617,6 +796,7 @@ const PriorAuth = () => {
                             name="opState"
                             value={formik.values.opState}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opState &&
                               Boolean(formik.errors.opState)
@@ -640,6 +820,7 @@ const PriorAuth = () => {
                             name="opCounty"
                             value={formik.values.opCounty}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opCounty &&
                               Boolean(formik.errors.opCounty)
@@ -663,6 +844,7 @@ const PriorAuth = () => {
                             name="opPostalCode"
                             value={formik.values.opPostalCode}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opPostalCode &&
                               Boolean(formik.errors.opPostalCode)
@@ -687,6 +869,7 @@ const PriorAuth = () => {
                             name="opPhoneNumber"
                             value={formik.values.opPhoneNumber}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opPhoneNumber &&
                               Boolean(formik.errors.opPhoneNumber)
@@ -711,6 +894,7 @@ const PriorAuth = () => {
                             name="opFax"
                             value={formik.values.opFax}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.opFax &&
                               Boolean(formik.errors.opFax)
@@ -733,6 +917,7 @@ const PriorAuth = () => {
                             name="pcpName"
                             value={formik.values.pcpName}
                             onChange={formik.handleChange}
+                            InputLabelProps={{ required: true }}
                             error={
                               formik.touched.pcpName &&
                               Boolean(formik.errors.pcpName)
@@ -799,6 +984,7 @@ const PriorAuth = () => {
                           name="primaryDiagnosis"
                           value={formik.values.primaryDiagnosis}
                           onChange={formik.handleChange}
+                          InputLabelProps={{ required: true }}
                           error={
                             formik.touched.primaryDiagnosis &&
                             Boolean(formik.errors.primaryDiagnosis)
@@ -827,6 +1013,7 @@ const PriorAuth = () => {
                           name="primaryDiagnosisCode"
                           value={formik.values.primaryDiagnosisCode}
                           onChange={formik.handleChange}
+                          InputLabelProps={{ required: true }}
                           error={
                             formik.touched.primaryDiagnosisCode &&
                             Boolean(formik.errors.primaryDiagnosisCode)
@@ -853,6 +1040,7 @@ const PriorAuth = () => {
                           name="pastMedicalHistory"
                           value={formik.values.pastMedicalHistory}
                           onChange={formik.handleChange}
+                          InputLabelProps={{ required: true }}
                           error={
                             formik.touched.pastMedicalHistory &&
                             Boolean(formik.errors.pastMedicalHistory)
@@ -867,175 +1055,7 @@ const PriorAuth = () => {
                     </Grid>
                   </Grid>
                 </Grid>
-                {/* Referral Source Information */}
-                <Grid item container>
-                  <Box>
-                    <div className="font-semibold text-sm mb-2">
-                      Referral Source:
-                    </div>
-                    <div className="text-gray-400 text-xs mb-2">
-                      Please enter the referral source information
-                    </div>
-                  </Box>
-                  <Grid
-                    container
-                    rowSpacing={2}
-                    columnSpacing={{ xs: 1, sm: 2 }}
-                  >
-                    <Grid item xs={6} sm={4} md={3}>
-                      <FormControl
-                        sx={{ minWidth: 270 }}
-                        variant="filled"
-                        size="small"
-                      >
-                        <InputLabel id="source">Referral Source</InputLabel>
-                        <Select
-                          labelId="source"
-                          id="source"
-                          name="source"
-                          value={formik.values.source}
-                          onChange={formik.handleChange}
-                          // inputlabelprops={{ shrink: true, required: true }}
-                          error={
-                            formik.touched.source &&
-                            Boolean(formik.errors.source)
-                          }
-                          // helpertext={
-                          //   formik.touched.source && formik.errors.source
-                          // }
-                        >
-                          <MenuItem value="English">Hospital</MenuItem>
-                          <MenuItem value="SNF/Rehab">SNF/Rehab</MenuItem>
-                          <MenuItem value="Spanish">MD Office</MenuItem>
-                          <MenuItem value="Other">Other</MenuItem>
-                        </Select>
-                        <FormHelperText>
-                          <span className="text-red-500">
-                            {formik.touched.source && formik.errors.source}
-                          </span>
-                        </FormHelperText>
-                      </FormControl>
-                    </Grid>
-                    <Grid item>
-                      <FormControl>
-                        <Field
-                          as={TextField}
-                          label="Name:"
-                          variant="filled"
-                          size="small"
-                          id="sourceName"
-                          name="sourceName"
-                          type="text"
-                          value={formik.values.sourceName}
-                          InputLabelProps={{ required: true }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.sourceName &&
-                            Boolean(formik.errors.sourceName)
-                          }
-                          helperText={
-                            formik.touched.sourceName &&
-                            formik.errors.sourceName
-                          }
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item>
-                      <FormControl>
-                        <Field
-                          as={TextField}
-                          label="NPI:"
-                          variant="filled"
-                          size="small"
-                          id="sourceNPI"
-                          name="sourceNPI"
-                          type="text"
-                          value={formik.values.sourceNPI}
-                          InputLabelProps={{ required: true }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.sourceNPI &&
-                            Boolean(formik.errors.sourceNPI)
-                          }
-                          helperText={
-                            formik.touched.sourceNPI && formik.errors.sourceNPI
-                          }
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item>
-                      <FormControl>
-                        <Field
-                          as={TextField}
-                          label="Contact:"
-                          variant="filled"
-                          size="small"
-                          id="sourceContact"
-                          name="sourceContact"
-                          type="text"
-                          value={formik.values.sourceContact}
-                          InputLabelProps={{ required: true }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.sourceContact &&
-                            Boolean(formik.errors.sourceContact)
-                          }
-                          helperText={
-                            formik.touched.sourceContact &&
-                            formik.errors.sourceContact
-                          }
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item>
-                      <FormControl>
-                        <Field
-                          as={TextField}
-                          label="Phone:"
-                          variant="filled"
-                          size="small"
-                          id="sourcePhone"
-                          name="sourcePhone"
-                          type="text"
-                          value={formik.values.sourcePhone}
-                          InputLabelProps={{ required: true }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.sourcePhone &&
-                            Boolean(formik.errors.sourcePhone)
-                          }
-                          helperText={
-                            formik.touched.sourcePhone &&
-                            formik.errors.sourcePhone
-                          }
-                        />
-                      </FormControl>
-                    </Grid>
-                    <Grid item>
-                      <FormControl>
-                        <Field
-                          as={TextField}
-                          label="Fax:"
-                          variant="filled"
-                          size="small"
-                          id="sourceFax"
-                          name="sourceFax"
-                          type="text"
-                          value={formik.values.sourceFax}
-                          InputLabelProps={{ required: true }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.sourceFax &&
-                            Boolean(formik.errors.sourceFax)
-                          }
-                          helperText={
-                            formik.touched.sourceFax && formik.errors.sourceFax
-                          }
-                        />
-                      </FormControl>
-                    </Grid>
-                  </Grid>
-                </Grid>
+
                 {/* Agency Details Information */}
                 <Grid item container>
                   <Box>
@@ -1093,7 +1113,7 @@ const PriorAuth = () => {
                           name="agencyEmail"
                           type="email"
                           value={formik.values.agencyEmail}
-                          // InputLabelProps={{ shrink: true, required: true }}
+                          InputLabelProps={{ required: true }}
                           onChange={formik.handleChange}
                           error={
                             formik.touched.agencyEmail &&
@@ -1117,7 +1137,7 @@ const PriorAuth = () => {
                           name="AgencyName"
                           type="text"
                           value={formik.values.AgencyName}
-                          // InputLabelProps={{ shrink: true, required: true }}
+                          InputLabelProps={{ required: true }}
                           onChange={formik.handleChange}
                           error={
                             formik.touched.AgencyName &&
@@ -1141,7 +1161,7 @@ const PriorAuth = () => {
                           name="agencyPhone"
                           type="text"
                           value={formik.values.agencyPhone}
-                          // InputLabelProps={{ shrink: true, required: true }}
+                          InputLabelProps={{ required: true }}
                           onChange={formik.handleChange}
                           error={
                             formik.touched.agencyPhone &&
@@ -1165,7 +1185,7 @@ const PriorAuth = () => {
                           name="agencyFax"
                           type="text"
                           value={formik.values.agencyFax}
-                          // InputLabelProps={{ shrink: true, required: true }}
+                          InputLabelProps={{ required: true }}
                           onChange={formik.handleChange}
                           error={
                             formik.touched.agencyFax &&
@@ -1192,7 +1212,6 @@ const PriorAuth = () => {
                           name="sendApprovedAuth"
                           value={formik.values.sendApprovedAuth}
                           onChange={formik.handleChange}
-                          // InputLabelProps={{ shrink: true, required: true }}
                           error={
                             formik.touched.sendApprovedAuth &&
                             Boolean(formik.errors.sendApprovedAuth)
