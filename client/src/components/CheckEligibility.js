@@ -150,7 +150,7 @@ const CheckEligibility = (props) => {
   });
   const formik = useFormik({
     initialValues: initialValues,
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
       const response = true;
